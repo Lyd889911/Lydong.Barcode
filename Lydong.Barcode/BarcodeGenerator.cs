@@ -21,7 +21,7 @@ namespace Lydong.Barcode
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        public byte[] Create(BarcodeOptions option)
+        public SKBitmap Create(BarcodeOptions option)
         {
             var writer = new BarcodeWriter()
             {
@@ -54,7 +54,7 @@ namespace Lydong.Barcode
 
             result = SetBackgroudColor(result, option.BackgroundColor);
 
-            return result.Encode(SKEncodedImageFormat.Png, 100).ToArray();
+            return result;
         }
         /// <summary>
         /// 解析一维码或者二维码
@@ -266,8 +266,9 @@ namespace Lydong.Barcode
         /// <summary>
         /// 保存条码图片
         /// </summary>
-        public static void ToSaveBarcodeImage(this byte[] data,string fileName)
+        public static void ToSavePng(this SKBitmap bitmap, string fileName)
         {
+            byte[] data = bitmap.ToBytes(SKEncodedImageFormat.Png);
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException("文件名不能为空");
 
@@ -278,6 +279,10 @@ namespace Lydong.Barcode
             stream.Write(data, 0, data.Length);
             stream.Flush();
             stream.Close();
+        }
+        public static byte[] ToBytes(this SKBitmap bitmap, SKEncodedImageFormat format)
+        {
+            return bitmap.Encode(format, 100).ToArray();
         }
     }
 }

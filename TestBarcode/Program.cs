@@ -33,7 +33,7 @@ opt.LogoConfig.Height = 300;
 opt.LogoConfig.AbsoluteY = 0;
 opt.LogoConfig.Transparency = 0.4;
 
-bg.Create(opt).ToSaveBarcodeImage("Barcode/ceshi.png");
+bg.Create(opt).ToSavePng("Barcode/ceshi.png");
 
 //string p = @"Barcode/36c489f33e7b0c07fa20665f4b55e99.jpg";
 //string r = bg.Parse(new FileStream(p, FileMode.Open));
